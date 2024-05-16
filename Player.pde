@@ -1,6 +1,6 @@
 class Player {
     PVector position;
-    PVector speed;
+    PVector speed = new PVector(0, 0);;
 
     PImage[] attackImages = new PImage[6];
     PImage[] idleImages = new PImage[6];
@@ -13,6 +13,7 @@ class Player {
     boolean isAttacking = false;
     boolean isMoving = false;
     boolean isCollisioning = false;
+    boolean isBeingDamaged = false;
 
     int index = 0;
     int frameCounter = 0;
@@ -29,28 +30,25 @@ class Player {
         this.position = new PVector(x, y);
         this.playerNumber = playerNumber;
         this.health = health;
-
-        constrain(this.position.x, 0, width);
-
+        this.isBeingDamaged = isBeingDamaged;
         this.health = health;
-
         this.playerWidth = playerWidth;
         this.playerHeight = playerHeight;
 
-        speed = new PVector(0, 0);
+        constrain(this.position.x, 0, width);
 
         String playerFolder = playerNumber == 1 ? "player1" : "player2";
 
         for (int i = 0; i < attackImages.length; i++) {
-            attackImages[i] = loadImage("./assets/players/" + playerFolder + "/attack/attack_" + i + ".png");
+            attackImages[i] = loadImage("./data/players/" + playerFolder + "/attack/attack_" + i + ".png");
         }
 
         for (int i = 0; i < idleImages.length; i++) {
-            idleImages[i] = loadImage("./assets/players/" + playerFolder + "/idle/idle_" + i + ".png");
+            idleImages[i] = loadImage("./data/players/" + playerFolder + "/idle/idle_" + i + ".png");
         }
 
         for (int i = 0; i < movingImages.length; i++) {
-            movingImages[i] = loadImage("./assets/players/" + playerFolder + "/moving/moving_" + i + ".png");
+            movingImages[i] = loadImage("./data/players/" + playerFolder + "/moving/moving_" + i + ".png");
         }
     }
 

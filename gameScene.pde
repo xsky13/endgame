@@ -5,6 +5,7 @@ void gameScene() {
     
     noStroke();
 
+    // todas las imagenes cargadas anteriormente
     image(staticScene, 0, 0);
 
     if (players[0].health <= 0 || players[1].health <= 0) {
@@ -13,7 +14,7 @@ void gameScene() {
 
 	rectMode(CORNER);
 
-    // health pplayer 1
+    // barra de vida jugador 1
     fill(255, 0, 0);
     rect(30, 30, players[0].health * 3, 15, 10);
     fill(0);

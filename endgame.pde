@@ -34,26 +34,26 @@ Tree[] trees = new Tree[8];
 void setup() {
     fullScreen();
 
-    mainFont = createFont("assets/fonts/Jersey15-Regular.ttf", 70);
+    mainFont = createFont("data/fonts/Jersey15-Regular.ttf", 70);
 
-    ground = loadImage("assets/backgrounds/ground.png");
-    groundSmall = loadImage("assets/backgrounds/ground_small.png");
-    groundElevation = loadImage("assets/backgrounds/groundElevation.png");
+    ground = loadImage("data/backgrounds/ground.png");
+    groundSmall = loadImage("data/backgrounds/ground_small.png");
+    groundElevation = loadImage("data/backgrounds/groundElevation.png");
 
-    grassYellow = loadImage("assets/backgrounds/grass_yellow.png");
-    grass = loadImage("assets/backgrounds/grass.png");
-    grassSmall = loadImage("assets/backgrounds/grassSmall.png");
-    bridge = loadImage("assets/bridge.png");
-    water = loadImage("assets/water.png");
-    foam = loadImage("assets/foam.png");
-    foamWater = loadImage("assets/foamWater.png");
+    grassYellow = loadImage("data/backgrounds/grass_yellow.png");
+    grass = loadImage("data/backgrounds/grass.png");
+    grassSmall = loadImage("data/backgrounds/grassSmall.png");
+    bridge = loadImage("data/bridge.png");
+    water = loadImage("data/water.png");
+    foam = loadImage("data/foam.png");
+    foamWater = loadImage("data/foamWater.png");
 
-    cloud1 = loadImage("assets/backgrounds/cloud_1.png");
-    cloud2 = loadImage("assets/backgrounds/cloud_2.png");
-    cloud3 = loadImage("assets/backgrounds/cloud_3.png");
+    cloud1 = loadImage("data/backgrounds/cloud_1.png");
+    cloud2 = loadImage("data/backgrounds/cloud_2.png");
+    cloud3 = loadImage("data/backgrounds/cloud_3.png");
 
-    towerRed = loadImage("assets/tower_red.png");
-    towerBlue = loadImage("assets/tower_blue.png");
+    towerRed = loadImage("data/tower_red.png");
+    towerBlue = loadImage("data/tower_blue.png");
 
     players[0] = new Player(100, 800, 1);
     players[1] = new Player(800, 800, 2);

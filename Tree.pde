@@ -12,7 +12,7 @@ class Tree {
         this.y = y;
 
         for (int i = 0; i < treeImages.length; i++) {
-            treeImages[i] = loadImage("./assets/trees/tree_" + i + ".png");
+            treeImages[i] = loadImage("./data/trees/tree_" + i + ".png");
         }
     }
 
