@@ -54,10 +54,11 @@ void setup() {
 
 void draw() {
     background(0);
-
     if (state == "start") {
       startScene();
     } else if (state == "game") {
       gameScene();
+    } else if (state == "end") {
+      endScene();
     }
 }

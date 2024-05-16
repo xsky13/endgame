@@ -28,6 +28,7 @@ class Player {
     Player(float x, float y, int playerNumber) {
         this.position = new PVector(x, y);
         this.playerNumber = playerNumber;
+        this.health = health;
 
         constrain(this.position.x, 0, width);
 
@@ -96,13 +97,6 @@ class Player {
             drawPlayer(idleImages);
         }
         imageMode(CORNERS);
-
-        if (this.health <= 0) {
-            fill(0);
-            rect(0, 0, width, height);
-            textSize(50);
-            text("El Jugador " + this.playerNumber + " ha perdido.", 500, 500);
-        }
     }
 
     void applyGravity() {

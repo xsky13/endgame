@@ -19,6 +19,11 @@ void gameScene() {
     fill(0);
 	text("Vida de Jugador 2: " + players[1].health, width - 174, 75);
 
+    // buscar quien perdio 
+    if (players[0].health <= 0 || players[1].health <= 0) {
+        state = "end";
+    }
+
     // agua y espuma de agua
     for (int i = 0; i < 100; i++) {
         image(foam, i * 20, height - 205);
