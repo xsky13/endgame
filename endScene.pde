@@ -10,7 +10,7 @@ void endScene() {
         text("El Jugador 2 ha perdido.", width/2, height/2);
     }
 
-    Button startButton = new Button(width/2, height/2 + 150, 200, 60, "Comenzar", new Runnable() {
+    Button startButton = new Button(width/2, height/2 + 150, 200, 60, "Reiniciar", new Runnable() {
       public void run() {
         setup();
         state = "start";
