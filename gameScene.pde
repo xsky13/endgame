@@ -13,6 +13,7 @@ void gameScene() {
     }
 
     tree.display();
+    tree2.display();
 
 	rectMode(CORNER);
 
@@ -27,8 +28,22 @@ void gameScene() {
 	rect(width - players[1].health * 3 - 30, 30, players[1].health * 3, 15, 10);
     fill(0);
 	text("Vida de Jugador 2: " + players[1].health, width - 174, 75);
+
+    // Si hay mas hongos usados que hongos sin usar agregar uno nuevo al array de hongos
+    // Esto hace que siempre haya un hongo en el juego
+    if (usedMushrooms.length > mushrooms.length) {
+        mushrooms = (Mushroom[]) append(mushrooms, new Mushroom(random(1, width)));
+    }
     
     for (int i = 0; i < players.length; i++) {
+        for (int j = 0; j < mushrooms.length; j++) {
+            // si no ha colisionado con el juagdor mostrar y detectar colisiones por cada hongo
+            if (!mushrooms[j].isCollisioning) {
+                mushrooms[j].display();
+                mushrooms[j].detectCollisionWithPlayer(players[i], mushrooms[j]);
+            }
+        } 
+
         players[i].checkBorders();
         players[i].move();
         players[i].applyGravity();

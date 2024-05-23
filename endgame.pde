@@ -19,6 +19,8 @@ PImage water;
 PImage foam;
 PImage foamWater;
 
+PImage mushroom;
+
 PImage towerRed;
 PImage towerBlue;
 
@@ -31,7 +33,11 @@ Player player;
 Player player2;
 Player[] players = new Player[2];
 
+// arboles y hongos
 Tree tree;
+Tree tree2;
+Mushroom[] mushrooms = new Mushroom[1];
+Mushroom[] usedMushrooms = new Mushroom[0];
 
 // Se almacenan valores asociados con llaves, la llave siendo tipo integer (la tecla presionada), y su valor es si ha sido presionado o no
 // Su valor se establece en keyPressed() y keyReleased()
@@ -49,6 +55,7 @@ void setup() {
     mainFont = createFont("data/fonts/Jersey15-Regular.ttf", 70);
 
     tree = new Tree(width - 670, height - 350);
+    tree2 = new Tree(180, height - 350);
 
     // Cargar imagenes
     ground = loadImage("data/backgrounds/ground.png");
@@ -63,12 +70,19 @@ void setup() {
     foam = loadImage("data/foam.png");
     foamWater = loadImage("data/foamWater.png");
 
+    mushroom = loadImage("data/mushroom.png");
+
     cloud1 = loadImage("data/backgrounds/cloud_1.png");
     cloud2 = loadImage("data/backgrounds/cloud_2.png");
     cloud3 = loadImage("data/backgrounds/cloud_3.png");
 
     towerRed = loadImage("data/tower_red.png");
     towerBlue = loadImage("data/tower_blue.png");
+
+    // cargar los hongos
+    for (int i = 0; i < mushrooms.length; i++) {
+        mushrooms[i] = new Mushroom(random(1, width));
+    }
 
     players[0] = new Player(100, height - 170, 1, playerOneKeys);
     players[1] = new Player(width - 100, height - 170, 2, playerTwoKeys);
