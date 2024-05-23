@@ -1,10 +1,13 @@
+// Estado del juego
 String state = "start";
-PFont mainFont;
-PImage background;
 
+// Fuente utilizada
+PFont mainFont;
+
+// Graficos que se cargan antes del loop
 PGraphics staticScene;
 
-
+// imagenes
 PImage ground;
 PImage groundSmall;
 PImage groundElevation;
@@ -23,16 +26,19 @@ PImage cloud1;
 PImage cloud2;
 PImage cloud3;
 
+// Jugadores
 Player player;
 Player player2;
-
 Player[] players = new Player[2];
 
 Tree tree;
 
-
+// Se almacenan valores asociados con llaves, la llave siendo tipo integer (la tecla presionada), y su valor es si ha sido presionado o no
+// Su valor se establece en keyPressed() y keyReleased()
+// Intente hacer lo mismo con un array (boolean[] keys = new boolean[256]), y aunque esto funcionaba, el juego andaba mucho mas lento.
 HashMap<Integer, Boolean> keys = new HashMap<Integer, Boolean>();
 
+// Los valores de las teclas para cada jugador
 int[] playerOneKeys = {87, 65, 68, 81};
 int[] playerTwoKeys = {38, 37, 39, 16};
 
@@ -44,6 +50,7 @@ void setup() {
 
     tree = new Tree(width - 670, height - 350);
 
+    // Cargar imagenes
     ground = loadImage("data/backgrounds/ground.png");
     groundSmall = loadImage("data/backgrounds/ground_small.png");
     groundElevation = loadImage("data/backgrounds/groundElevation.png");
@@ -157,6 +164,8 @@ void setup() {
 
 void draw() {
     background(0);
+    
+    // Dibujar cada escena basado en el estado
     if (state == "start") {
       startScene();
     } else if (state == "game") {
@@ -166,10 +175,13 @@ void draw() {
     }
 }
 
+
+// Al presionar cada tecla se los agrega al HashMap keys con un valor de verdadero
 void keyPressed() {
     keys.put(keyCode, true);
 }
 
+// Al soltar la tecla el valor en el HashMap es eliminado o puesto a falso
 void keyReleased() {
     keys.put(keyCode, false);
 }

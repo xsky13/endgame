@@ -156,6 +156,8 @@ class Player {
 }
     
     void move() {
+        // Se lee el HashMap keys para determinar que tecla ha sido presionada
+        // keys.getOrDefaut() toma como parametro un valor del HashMap. Si esta en el HashMap se toma como verdadero, si no toma como predeterminado el segundo parametro (false)
         if (keys.getOrDefault(this.keyCodes[0], false) && (this.position.y == height - 180 || isOnRockXpos)) {
             speed.set(speed.x, -16);
             isMoving = false;
