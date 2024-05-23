@@ -12,6 +12,8 @@ void gameScene() {
         state = "end";
     }
 
+    tree.display();
+
 	rectMode(CORNER);
 
     // barra de vida jugador 1
@@ -27,18 +29,11 @@ void gameScene() {
 	text("Vida de Jugador 2: " + players[1].health, width - 174, 75);
     
     for (int i = 0; i < players.length; i++) {
-        players[i].applyGravity();
         players[i].checkBorders();
-        players[i].move(players[i == players.length - 1 ? 0 : 1]);
-        players[i].attackAnimation();
-
-		if (i == 1) {
-            players[i].attack(players[0]);
-		} else if (i == 0) {
-            players[i].attack(players[1]);
-		}
-
-        players[i].detectCollisionWithPlayer(players[i == players.length - 1 ? 0 : 1].playerWidth, players[i == players.length - 1 ? 0 : 1].playerHeight, players[i == players.length - 1 ? 0 : 1].position);
+        players[i].move();
+        players[i].applyGravity();
+        players[i].attack(players[(i + 1) % players.length]);
+        players[i].detectCollisionWithPlayer(players[(i + 1) % players.length]);
         players[i].display();
     }
     

@@ -28,13 +28,21 @@ Player player2;
 
 Player[] players = new Player[2];
 
-Tree[] trees = new Tree[8];
+Tree tree;
+
+
+HashMap<Integer, Boolean> keys = new HashMap<Integer, Boolean>();
+
+int[] playerOneKeys = {87, 65, 68, 81};
+int[] playerTwoKeys = {38, 37, 39, 16};
 
 
 void setup() {
     fullScreen();
 
     mainFont = createFont("data/fonts/Jersey15-Regular.ttf", 70);
+
+    tree = new Tree(width - 670, height - 350);
 
     ground = loadImage("data/backgrounds/ground.png");
     groundSmall = loadImage("data/backgrounds/ground_small.png");
@@ -55,12 +63,8 @@ void setup() {
     towerRed = loadImage("data/tower_red.png");
     towerBlue = loadImage("data/tower_blue.png");
 
-    players[0] = new Player(100, 800, 1);
-    players[1] = new Player(800, 800, 2);
-
-    for (int i = 0; i < trees.length; i++) {
-      	trees[i] = new Tree(random(width), height - 375);
-    }
+    players[0] = new Player(100, height - 170, 1, playerOneKeys);
+    players[1] = new Player(width - 100, height - 170, 2, playerTwoKeys);
 
 	// todas las imagenes estaticas las cargamos y dibujamos en el setup() para que no se laguee en draw()
     staticScene = createGraphics(width, height);
@@ -144,6 +148,10 @@ void setup() {
     staticScene.image(towerRed, 50, height - 350);
     staticScene.image(towerBlue, width - 150, height - 350);
 
+    staticScene.image(groundElevation, width/2, height - 400);
+    staticScene.image(groundElevation, width/2 - groundElevation.width/2 - bridge.width, height - 400);
+    staticScene.image(bridge, width/2 - groundElevation.width/2, height - 400);
+
     staticScene.endDraw();
 }
 
@@ -156,4 +164,12 @@ void draw() {
     } else if (state == "end") {
       endScene();
     }
+}
+
+void keyPressed() {
+    keys.put(keyCode, true);
+}
+
+void keyReleased() {
+    keys.put(keyCode, false);
 }
