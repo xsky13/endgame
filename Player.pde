@@ -138,7 +138,7 @@ class Player {
             speed.set(speed.x, 0);
         } 
         // el jugador esta adentro de la posicion x de las rocas flotantes
-        else if (this.position.x >= width/2 - groundElevation.width/2 - bridge.width && this.position.x <= width/2 + groundElevation.width) {
+        else if (this.position.x + this.playerWidth/2 >= width/2 - groundElevation.width/2 - bridge.width && this.position.x - this.playerWidth/2 <= width/2 + groundElevation.width) {
             // el jugador tambien esta en la posicion y de las rocas flotantes
             if (this.position.y >= height - 401 && this.position.y <= height - 400) {
                 this.position.y = height - 401;
