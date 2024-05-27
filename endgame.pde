@@ -20,6 +20,7 @@ PImage foam;
 PImage foamWater;
 
 PImage mushroom;
+PImage pumpkin;
 
 PImage towerRed;
 PImage towerBlue;
@@ -36,8 +37,9 @@ Player[] players = new Player[2];
 // arboles y hongos
 Tree tree;
 Tree tree2;
+
 Mushroom[] mushrooms = new Mushroom[1];
-Mushroom[] usedMushrooms = new Mushroom[0];
+Pumpkin[] pumpkins = new Pumpkin[1];
 
 // Se almacenan valores asociados con llaves, la llave siendo tipo integer (la tecla presionada), y su valor es si ha sido presionado o no
 // Su valor se establece en keyPressed() y keyReleased()
@@ -48,6 +50,8 @@ HashMap<Integer, Boolean> keys = new HashMap<Integer, Boolean>();
 int[] playerOneKeys = {87, 65, 68, 81};
 int[] playerTwoKeys = {38, 37, 39, 16};
 
+long mushroomCollisionTime;
+long pumpkinCollisionTime;
 
 void setup() {
     fullScreen();
@@ -71,6 +75,8 @@ void setup() {
     foamWater = loadImage("data/foamWater.png");
 
     mushroom = loadImage("data/mushroom.png");
+    
+    pumpkin = loadImage("data/pumpkin.png");
 
     cloud1 = loadImage("data/backgrounds/cloud_1.png");
     cloud2 = loadImage("data/backgrounds/cloud_2.png");
@@ -82,6 +88,11 @@ void setup() {
     // cargar los hongos
     for (int i = 0; i < mushrooms.length; i++) {
         mushrooms[i] = new Mushroom(random(1, width));
+    }
+
+    // cargar los zapallos
+    for (int i = 0; i < pumpkins.length; i++) {
+        pumpkins[i] = new Pumpkin(random(1, width));
     }
 
     players[0] = new Player(100, height - 170, 1, playerOneKeys);

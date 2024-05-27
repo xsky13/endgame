@@ -38,11 +38,14 @@ class Mushroom {
             // si la vida del jugador es menor o igual a 80 agregarle a su vida
             // si esta colisionando, el hongo va a desaparecer
             if (player.health <= 80) {
+                long currentTime = millis();
+                mushroomCollisionTime = currentTime;
+
                 player.health += 20;
                 isCollisioning = true;
 
-                // agregar este hongo a los hongos usados
-                usedMushrooms = (Mushroom[]) append(mushrooms, mushroom);
+                // eliminar el hongo
+                mushrooms = (Mushroom[]) subset(mushrooms, 1);
             } else {
                 // si la vida del jugador no  es menor o igual a 80 no puede agarrar el hongo
                 isCollisioning = false;

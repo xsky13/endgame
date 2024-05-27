@@ -29,19 +29,28 @@ void gameScene() {
     fill(0);
 	text("Vida de Jugador 2: " + players[1].health, width - 174, 75);
 
-    // Si hay mas hongos usados que hongos sin usar agregar uno nuevo al array de hongos
-    // Esto hace que siempre haya un hongo en el juego
-    if (usedMushrooms.length > mushrooms.length) {
-        mushrooms = (Mushroom[]) append(mushrooms, new Mushroom(random(1, width)));
+    if (millis() - mushroomCollisionTime >= 10000 && mushroomCollisionTime != 0) {
+        mushrooms = (Mushroom[]) append(mushrooms, new Mushroom(random(width)));  
+        mushroomCollisionTime = 0;
     }
+
+    if (millis() - pumpkinCollisionTime >= 20000 && pumpkinCollisionTime != 0) {
+        pumpkins = (Pumpkin[]) append(pumpkins, new Pumpkin(random(width)));  
+        pumpkinCollisionTime = 0;
+    }
+
     
     for (int i = 0; i < players.length; i++) {
         for (int j = 0; j < mushrooms.length; j++) {
-            // si no ha colisionado con el juagdor mostrar y detectar colisiones por cada hongo
-            if (!mushrooms[j].isCollisioning) {
-                mushrooms[j].display();
-                mushrooms[j].detectCollisionWithPlayer(players[i], mushrooms[j]);
-            }
+            mushrooms[j].display();
+            mushrooms[j].detectCollisionWithPlayer(players[i], mushrooms[j]);
+        } 
+
+        for (int j = 0; j < pumpkins.length; j++) {
+            pumpkins[j].display();
+            pumpkins[j].detectCollisionWithPlayer(players[i], pumpkins[j], j);
+
+
         } 
 
         players[i].checkBorders();
@@ -50,6 +59,7 @@ void gameScene() {
         players[i].attack(players[(i + 1) % players.length]);
         players[i].detectCollisionWithPlayer(players[(i + 1) % players.length]);
         players[i].display();
+        players[i].updateDamage();
     }
     
 }

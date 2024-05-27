@@ -19,7 +19,7 @@ class Player {
     int frameCounter = 0;
     int frameDelay = 6;
 
-    long lastAttackTime = 0;
+    long attackTime = 0;
     int attackDuration = 500;
     
     // ancho y alto del jugador
@@ -29,6 +29,8 @@ class Player {
     boolean isOnRockXpos = false;
     
     int health = 100;
+
+    int damage = 5;
 
     // las tecladas utilizadas por el jugador
     int[] keyCodes;
@@ -41,8 +43,9 @@ class Player {
         this.playerWidth = playerWidth;
         this.playerHeight = playerHeight;
         this.keyCodes = keyCodes;
+        this.damage = damage;
 
-        speed = new PVector(0, 0);
+        // speed = new PVector(0, 0);
         
         
         constrain(this.position.x, 0 + this.playerWidth / 2, width - this.playerWidth / 2);
@@ -106,6 +109,14 @@ class Player {
         rectMode(CENTER);
         rect(this.position.x - playerWidth / 2 + 40, this.position.y - playerHeight / 2, this.health / 1.5, 10, 10);
         rectMode(CORNER);
+
+        // barra de mas daño arriba del jugador
+        if (this.damage == 10) {
+            fill(100, 0, 255);
+            rectMode(CENTER);
+            rect(this.position.x - playerWidth / 2 + 40, (this.position.y - playerHeight / 2) - 10, 50 - ((millis() - pumpkinCollisionTime)/100), 10, 10);
+            rectMode(CORNER);
+        } 
         
         // Se establecen los valores de la anchura y altura del jugador.
         // Esto se hace dentro de esta funcion porque las imagenes pueden tener tamaños distintos en cada frame
@@ -176,11 +187,20 @@ class Player {
         
         this.position.add(speed);
     } 
+
+    void updateDamage() {
+        // Si ha pasado 5 segundos desde que se agarro el zapallo
+        if (millis() - pumpkinCollisionTime >= 5000 && pumpkinCollisionTime != 0) {
+            if (this.damage == 10) {
+                this.damage = 5;
+            }     
+        }
+    }
     
     void attack(Player enemy) {
         if (keyPressed && keys.getOrDefault(this.keyCodes[3], false)) {
             long currentTime = millis();
-            lastAttackTime = currentTime;
+            attackTime = currentTime;
             isAttacking = true;
 
             // si hay colision, entonces aplicar knockback y restarle vida al enemigo
@@ -192,11 +212,11 @@ class Player {
                     // el enemigo esta a la izquierda del jugador
                     enemy.position.x -= 30;
                 }
-                enemy.health -= 5;
+                enemy.health -= this.damage;
             }
         }
         
-        if (isAttacking && millis() - lastAttackTime >= attackDuration) {
+        if (isAttacking && millis() - attackTime >= attackDuration) {
             isAttacking = false;
         }
     }
