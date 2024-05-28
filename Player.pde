@@ -1,7 +1,9 @@
 class Player {
+    // Posicion y velocidad del jugador.
     PVector position;
     PVector speed = new PVector(0, 0);
     
+    // Array de imagenes.
     PImage[] attackImages = new PImage[6];
     PImage[] idleImages = new PImage[6];
     PImage[] movingImages = new PImage[6];
@@ -9,27 +11,34 @@ class Player {
     String dir;
     String playerFolder;
 
+    // ID de jugador.
     int playerNumber;
     
+    // Estados de ataque, movimiento, y colision.
     boolean isAttacking = false;
     boolean isMoving = false;
     boolean isCollisioning = false;
     
+    // Indice de imagen para mostrar.
     int index = 0;
+    // Contador de frames.
     int frameCounter = 0;
+    // Frames de demora entre cambio de imagen.
     int frameDelay = 6;
 
+    // Tiempo en el que se produjo el ataque.
     long attackTime = 0;
+    // Duracion del ataque.
     int attackDuration = 500;
     
     // ancho y alto del jugador
     float playerWidth;
     float playerHeight;
 
+    // Valor que determina si el jugador esta en la posicion x de las rocas flotantes
     boolean isOnRockXpos = false;
     
     int health = 100;
-
     int damage = 5;
 
     // las tecladas utilizadas por el jugador
@@ -44,14 +53,14 @@ class Player {
         this.playerHeight = playerHeight;
         this.keyCodes = keyCodes;
         this.damage = damage;
-
-        // speed = new PVector(0, 0);
         
-        
+        // El jugador no puede salir de la pantalla.
         constrain(this.position.x, 0 + this.playerWidth / 2, width - this.playerWidth / 2);
         
+        // Encontrar el numero correcto del carpeta
         playerFolder = playerNumber == 1 ? "player1" : "player2";
         
+        // Cargar todas las imagenes.
         for (int i = 0; i < attackImages.length; i++) {
             attackImages[i] = loadImage("./data/players/" + playerFolder + "/attack/attack_" + i + ".png");
         }
@@ -114,6 +123,7 @@ class Player {
         if (this.damage == 10) {
             fill(100, 0, 255);
             rectMode(CENTER);
+            // la longitud del rect empieza en 50, y se le van restando los milisegundos - el tiempo en el que hubo una colision. Esto esta en milisegundos, asi que hay que dividirlo por 100
             rect(this.position.x - playerWidth / 2 + 40, (this.position.y - playerHeight / 2) - 10, 50 - ((millis() - pumpkinCollisionTime)/100), 10, 10);
             rectMode(CORNER);
         } 
@@ -164,8 +174,9 @@ class Player {
         } else {
             isOnRockXpos = false;
         }
-}
+    }
     
+    // Logica de movimiento.
     void move() {
         // Se lee el HashMap keys para determinar que tecla ha sido presionada
         // keys.getOrDefaut() toma como parametro un valor del HashMap. Si esta en el HashMap se toma como verdadero, si no toma como predeterminado el segundo parametro (false)
@@ -184,12 +195,39 @@ class Player {
             isMoving = false;
             speed.set(0, speed.y);
         }
+
+        // Si el mando esta prendido, mover con el mando.
+        if (MandON && this.playerNumber == 1) {
+            // Movimiento en base al eje x.
+            this.position.add(mpx*10, 0);
+
+            // Determinar la direccion del jugador basado en mpx.
+            if (mpx > 0) {
+                dir = "right";
+                isMoving = true;
+            }
+            if (mpx < 0) {
+                dir = "left";
+                isMoving = true;
+            }
+            if (mpx == 0) {
+                isMoving = false;
+            }
+
+            // Si se apreta el boton de salto, y el jugador esta en el suelo o en la roca flotante
+            if (jumpButtonPressed && (this.position.y == height - 180 || isOnRockXpos) || rbpresOn) {
+                speed.set(speed.x, -16);
+                isMoving = false;
+            }
+        }
         
+        // Incrementar la posicion con la velocidad
         this.position.add(speed);
     } 
 
+    // Resetear el daño incrementado por el zapallo.
     void updateDamage() {
-        // Si ha pasado 5 segundos desde que se agarro el zapallo
+        // Si ha pasado 5 segundos desde que se agarro el zapallo, entonces resetar el daño.
         if (millis() - pumpkinCollisionTime >= 5000 && pumpkinCollisionTime != 0) {
             if (this.damage == 10) {
                 this.damage = 5;
@@ -197,32 +235,55 @@ class Player {
         }
     }
     
+    // Funcion de ataque.
     void attack(Player enemy) {
+        // Si el mando esta prendido y si el jugddor actual es el primero.
+        if (MandON && this.playerNumber == 1) {
+            // Si se han presionado los botones correctos.
+            if (btxpresOn || lbpresOn) {
+                // Establecer el tiempo en el que hubo un ataque al tiempo actual.
+                long currentTime = millis();
+                attackTime = currentTime;
+                isAttacking = true;  
+
+                // Si hay colision y ataque, infligir daño.
+                if (isAttacking && isCollisioning) {
+                    enemy.health -= this.damage;  
+                }                
+            }
+        }
+
+        // Si se ha presionado la tecla correcta, aplicar logica de daño.
         if (keyPressed && keys.getOrDefault(this.keyCodes[3], false)) {
+            // Establecer el tiempo en el que hubo un ataque al tiempo actual.
             long currentTime = millis();
             attackTime = currentTime;
             isAttacking = true;
 
-            // si hay colision, entonces aplicar knockback y restarle vida al enemigo
+            // Si hay colision, entonces aplicar knockback y restarle vida al enemigo.
             if (isCollisioning) {
+                // el enemigo esta a la derecha del jugador
                 if (enemy.position.x > this.position.x) {
-                    // el enemigo esta a la derecha del jugador
+                    // Agregare a la posicion al enemigo.
                     enemy.position.x += 30;
-                } else {
-                    // el enemigo esta a la izquierda del jugador
+                }             
+                // el enemigo esta a la izquierda del jugador 
+                else {
+                    // Restarle de la posicion al enemigo.
                     enemy.position.x -= 30;
                 }
+                // Sacarle la salud al enemigo.
                 enemy.health -= this.damage;
             }
         }
         
+        // Si hay ataque, y el tiempo actual - el tiempo exacto en que se produjo el ataque es mayor o igual a la duracion del ataque, entonces ya termino el ataque.
         if (isAttacking && millis() - attackTime >= attackDuration) {
             isAttacking = false;
         }
     }
     
-    
-    
+    // Deteccion de colisiones entre jugadores.
     void detectCollisionWithPlayer(Player enemy) {
         // calcular los lados del jugador
         float currentLeftSide = this.position.x - this.playerWidth / 2;
