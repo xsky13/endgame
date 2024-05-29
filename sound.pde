@@ -1,64 +1,48 @@
-int waitTime = 550;
-int waitTime2 = 550;
+int attackSoundWaitTime = 500;
+int moveSoundWaitTime = 500;
 
-int startTime = 550; // inicio del sonido del ataque
-int startTime2 = 550;// inicio del sonido del move pasto
+int attackSoundStartTime = 500; // inicio del sonido del ataque
+int moveSoundStartTime = 500;// inicio del sonido del move pasto
 
-boolean soundPlayed = false;
-boolean soundPlayed2 = false;
-
-boolean atackIsSounding; // variable pública para el sonido
-boolean jumpIsSounding; // variable de salto publica
-boolean WarMusic; // musica que se escucha en el combate 
-boolean moveIsSounding; // var de movimiento de jugadores publica
-
-SoundFile sound; //música fondo
-SoundFile[] atkSounds; //sonido ataque
-SoundFile Salto; // sonido de salto
-SoundFile mover; //sonido de pasto movimiento
-SoundFile EpicWar;//sonido de batalla 
-void sound() {
-	//sonidos ataque
-	atkSounds = new SoundFile[7];
-	for (int i = 0; i < atkSounds.length; i++) {
-		atkSounds[i] = new SoundFile(this, "./assets/Fx/" + (i + 1) + ".mp3");
-	}
-	mover = new SoundFile(this, "./assets/Fx/rustling.mp3");
-	Salto = new SoundFile(this, "./assets/Fx/jump.mp3");
-	sound = new SoundFile(this, "MedievalLofi.mp3"); //música de fondo
-	EpicWar = new SoundFile(this, "./assets/Fx/epicWar.mp3");
-	// EpicWar.play();
-}
+boolean attackSoundPlayed = false;
+boolean moveSoundPlayed = false;
 
 
 void soundFx() {
-	if (jumpIsSounding) {
-		Salto.play();
-		jumpIsSounding = false;
+	if (players[0].isJumping || players[1].isJumping) {
+		jumpFile.play();
 	}
-	if (moveIsSounding) {
-		if (!soundPlayed2) {
-			mover.play();
-			moveIsSounding = false;
-			soundPlayed2 = true;
-			startTime2 = millis();
+
+	// Si alguno de los jugadores se esta moviendo
+	if (players[0].isMoving || players[1].isMoving) {
+		// Si hay movimiento, y el sonido no esta siendo producido:
+		if (!moveSoundPlayed) {
+			moveFile.play();
+			// Se establecen los valores de tiempo relacionados con el sonido
+			moveSoundPlayed = true;
+			moveSoundStartTime = millis();
 		}
 		
-		if (soundPlayed2 && millis() - startTime2 >= waitTime2) {
-			soundPlayed2 = false;
+		// Si el sonido esta siendo producido y el tiempo actual restado por el tiempo en el que se produjo el comienzo de movimiento es menor o igual al tiempo que deberia durar el sonido de movimiento, se para el sonido.
+		if (moveSoundPlayed && millis() - moveSoundStartTime >= moveSoundWaitTime) {
+			moveSoundPlayed = false;
 		}
   	}
-	if (atackIsSounding) {
-		//sonido de ataque con random
-		if (!soundPlayed) {
-			int randomIndex = int(random(atkSounds.length));
-			atkSounds[randomIndex].play();
-			soundPlayed = true;
-			startTime = millis();
+
+	if (players[0].isAttacking || players[1].isAttacking) {
+		// Si hay ataque, y el sonido no esta siendo producido:
+		if (!attackSoundPlayed) {
+			// Se elige un indice random de sonido para tocar.
+			int randomIndex = int(random(attackSounds.length));
+			attackSounds[randomIndex].play();
+			// Se establecen los valores de tiempo relacionados con el sonido
+			attackSoundPlayed = true;
+			attackSoundStartTime = millis();
 		}
 
-		if (soundPlayed && millis() - startTime >= waitTime) {
-			soundPlayed = false;
+		// Si el sonido esta siendo producido y el tiempo actual restado por el tiempo en el que se produjo el ataque es menor o igual al tiempo que deberia durar el ataque, se para el sonido.
+		if (attackSoundPlayed && millis() - attackSoundStartTime >= attackSoundWaitTime) {
+			attackSoundPlayed = false;
 		}
 	}
 }

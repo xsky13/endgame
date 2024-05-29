@@ -177,13 +177,6 @@ class Player {
         }
     }
 
-    // Actualizar las variables de sonido
-    void updateSoundVariables() {
-        atackIsSounding = isAttacking;
-        jumpIsSounding = isJumping;
-        moveIsSounding = isMoving;
-    }
-    
     // Logica de movimiento.
     void move() {
         // Se lee el HashMap keys para determinar que tecla ha sido presionada

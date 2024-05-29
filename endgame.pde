@@ -40,6 +40,15 @@ PImage cloud1;
 PImage cloud2;
 PImage cloud3;
 
+// Musica de fondo.
+SoundFile backgroundMusic;
+// Sonidos ataque.
+SoundFile[] attackSounds; 
+// Sonido de salto.
+SoundFile jumpFile; 
+// Sonido de pasto movimiento.
+SoundFile moveFile; 
+
 // Jugadores
 Player player;
 Player player2;
@@ -52,7 +61,7 @@ Tree tree2;
 Mushroom[] mushrooms = new Mushroom[1];
 Pumpkin[] pumpkins = new Pumpkin[1];
 
-// cosos
+// cosos 3d
 PShape cat, espd;
 
 // Se almacenan valores asociados con llaves, la llave siendo tipo integer (la tecla presionada), y su valor es si ha sido presionado o no
@@ -82,8 +91,20 @@ float desaceleracion = 0.0002; // Desaceleración
 
 void setup() {
     fullScreen(P3D);
-    sound();
-    smooth();
+    
+    // Música de fondo.
+	backgroundMusic = new SoundFile(this, "MedievalLofi.mp3"); 
+    backgroundMusic.play();
+
+    // Cargar los sonidos de ataque.
+    attackSounds = new SoundFile[7];
+	for (int i = 0; i < attackSounds.length; i++) {
+		attackSounds[i] = new SoundFile(this, "./assets/Fx/" + (i + 1) + ".mp3");
+	}
+    // Sonido de movimiento.
+	moveFile = new SoundFile(this, "./assets/Fx/rustling.mp3");
+    // Sonido de salto.
+	jumpFile = new SoundFile(this, "./assets/Fx/jump.mp3");
 
     // Cosos 3d.
     cat = loadShape("Baby_Yoda.obj"); // 3d
