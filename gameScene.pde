@@ -54,6 +54,7 @@ void gameScene() {
         players[i].detectCollisionWithPlayer(players[(i + 1) % players.length]);
         players[i].display();
         players[i].updateDamage();
+        players[i].updateSoundVariables();
     }
 }
 

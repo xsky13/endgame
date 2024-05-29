@@ -1,4 +1,5 @@
 // librerias
+import processing.sound.*;
 import org.gamecontrolplus.gui.*;
 import org.gamecontrolplus.*;
 import net.java.games.input.*;
@@ -81,7 +82,7 @@ float desaceleracion = 0.0002; // Desaceleración
 
 void setup() {
     fullScreen(P3D);
-    
+    sound();
     smooth();
 
     // Cosos 3d.
@@ -321,6 +322,9 @@ void draw() {
     if (MandON) {
         MandoGlobal();
     }
+    
+    // Correr el sonido.
+    soundFx();
 }
 
 // Al presionar cada tecla se los agrega al HashMap keys con un valor de verdadero

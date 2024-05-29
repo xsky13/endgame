@@ -34,25 +34,26 @@ public void getUserInput() {
 	}
 }
 
-// No tengo ni idea que hace esto
+// No tengo ni idea que verga hace esto
 void MandoGlobal () {
-  getUserInput(); // Polling the input device
+	// Se consigue la entrada del usuario.
+  	getUserInput(); 
 
-  //menu 
-  posX += mpx;
+	//menu 
+	posX += mpx;
 
-  //movimiento incluyendo el tp
-  if (posY >= 300 && posY <= 540 ) {
-    posY += mpy * 8; //sensivilidad
-  } else if (posY < 300) {
-    posY = 540;
-  } else if (posY > 540) {
-    posY = 300;
-  }
-   if(BackOn){
-       pause = false;
-        println(BackOn+ "a"+ random(0,100));
-      }
+	//movimiento incluyendo el tp
+	if (posY >= 300 && posY <= 540 ) {
+		posY += mpy * 8; //sensibilidad
+	} else if (posY < 300) {
+		posY = 540;
+	} else if (posY > 540) {
+		posY = 300;
+	}
+	if (BackOn) {
+		pause = false;
+		println(BackOn+ "a"+ random(0,100));
+	}
   //fill(0, 0, 0);// referencia
   //rect(posX, posY, 20, 20);
 }

@@ -17,6 +17,7 @@ class Player {
     // Estados de ataque, movimiento, y colision.
     boolean isAttacking = false;
     boolean isMoving = false;
+    boolean isJumping = false;
     boolean isCollisioning = false;
     
     // Indice de imagen para mostrar.
@@ -175,6 +176,13 @@ class Player {
             isOnRockXpos = false;
         }
     }
+
+    // Actualizar las variables de sonido
+    void updateSoundVariables() {
+        atackIsSounding = isAttacking;
+        jumpIsSounding = isJumping;
+        moveIsSounding = isMoving;
+    }
     
     // Logica de movimiento.
     void move() {
@@ -183,16 +191,20 @@ class Player {
         if (keys.getOrDefault(this.keyCodes[0], false) && (this.position.y == height - 180 || isOnRockXpos)) {
             speed.set(speed.x, -16);
             isMoving = false;
+            isJumping = true;
         } else if (keys.getOrDefault(this.keyCodes[1], false)) {
             speed.set(-7, speed.y);
             dir = "left";
             isMoving = true;
+            isJumping = false;
         } else if (keys.getOrDefault(this.keyCodes[2], false)) {
             speed.set(7, speed.y);
             dir = "right";
             isMoving = true;
+            isJumping = false;
         } else {
             isMoving = false;
+            isJumping = false;
             speed.set(0, speed.y);
         }
 
@@ -249,7 +261,7 @@ class Player {
                 // Si hay colision y ataque, infligir daño.
                 if (isAttacking && isCollisioning) {
                     enemy.health -= this.damage;  
-                }                
+                } 
             }
         }
 
