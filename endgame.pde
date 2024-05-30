@@ -40,6 +40,12 @@ PImage cloud1;
 PImage cloud2;
 PImage cloud3;
 
+// Imagenes de detalle
+PImage bush;
+PImage stone;
+PImage xThingy;
+PImage arrowThingy;
+
 // Musica de fondo.
 SoundFile backgroundMusic;
 // Sonidos ataque.
@@ -86,7 +92,6 @@ int wallperImageIndex = 0;
 float transX = 300, transY = 100, transZ = 600, scaleFactor = 2;
 float rotX = 60, rotY = 90;
 float desaceleracion = 0.0002; // Desaceleración
-
 
 
 void setup() {
@@ -151,6 +156,11 @@ void setup() {
     
     towerRed = loadImage("data/tower_red.png");
     towerBlue = loadImage("data/tower_blue.png");
+
+    bush = loadImage("data/details/bush.png");
+    stone = loadImage("data/details/stone.png");
+    xThingy = loadImage("data/details/xThingy.png");
+    arrowThingy = loadImage("data/details/arrowThingy.png");
     
     // Crear los hongos.
     for (int i = 0; i < mushrooms.length; i++) {
@@ -196,6 +206,11 @@ void setup() {
     // primer bloque con pasto
     staticScene.image(ground, 0, height - 250);
     staticScene.image(grass, 0, height - 250);
+
+    // arbustos.
+    staticScene.image(bush, 50, height - 100);
+    staticScene.image(bush, 75, height - 100);
+    staticScene.image(bush, 100, height - 100);
     
     // puente
     staticScene.image(bridge, ground.width, height - 170);
@@ -213,11 +228,18 @@ void setup() {
     // segundo bloque, con pasto amarillo
     staticScene.image(ground, ground.width + (bridge.width * 2), height - 250);
     staticScene.image(grassYellow, ground.width + (bridge.width * 2), height - 250);
+
+    // piedra random
+    staticScene.image(stone, ground.width*2 + (bridge.width * 2) - 45, height - 210);
     
     // puente de piedra, con su espuma
     staticScene.image(foam,(ground.width * 2) + (bridge.width * 2), height - 202 + foam.height);
     staticScene.image(foam,(ground.width * 2) + (bridge.width * 2) + foam.width, height - 202 + foam.height);
     staticScene.image(groundElevation,(ground.width * 2) + (bridge.width * 2), height - 170);
+
+    // piedras
+    staticScene.image(stone, (ground.width * 2) + (bridge.width * 2) + 50, height - 182);
+    staticScene.image(stone, (ground.width * 2) + (bridge.width * 2) + groundElevation.width - 50, height - 134);
     
     // espuma de bloque 3
     staticScene.image(foam,(ground.width * 2) + (bridge.width * 2) + groundElevation.width - 10, height - 205);
@@ -233,6 +255,14 @@ void setup() {
     staticScene.image(groundSmall,(ground.width * 2) + (bridge.width * 2) + groundElevation.width + groundSmall.width, height - 250);
     staticScene.image(grassSmall,(ground.width * 2) + (bridge.width * 2) + groundElevation.width + groundSmall.width, height - 250);
     
+    // arbustos.
+    staticScene.image(bush, (ground.width * 2) + (bridge.width * 2) + groundElevation.width + 50, height - 230);
+    staticScene.image(bush, (ground.width * 2) + (bridge.width * 2) + groundElevation.width + 75, height - 230);
+
+    staticScene.image(bush, (ground.width * 2) + (bridge.width * 2) + groundElevation.width + 200, height - 100);
+
+    staticScene.image(bush, (ground.width * 2) + (bridge.width * 2) + groundElevation.width + 275, height - 120);
+    
     // puente
     staticScene.image(bridge,(ground.width * 2) + (bridge.width * 2) + groundElevation.width + groundSmall.width * 2, height - 170);
     
@@ -247,10 +277,16 @@ void setup() {
     // torres
     staticScene.image(towerRed, 50, height - 350);
     staticScene.image(towerBlue, width - 150, height - 350);
+
+    staticScene.image(xThingy, width - 200, height - 250);
+    staticScene.image(stone, width - 300, height - 140);
     
     staticScene.image(groundElevation, width / 2, height - 400);
     staticScene.image(groundElevation, width / 2 - groundElevation.width / 2 - bridge.width, height - 400);
     staticScene.image(bridge, width / 2 - groundElevation.width / 2, height - 400);
+
+    staticScene.image(arrowThingy, (width/2) - groundElevation.width/2 - bridge.width + 10, height - 370 - groundElevation.width/2);
+    
     
     staticScene.endDraw();
 }
