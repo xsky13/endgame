@@ -19,6 +19,8 @@ class Button {
         rectMode(CENTER);
         noStroke();
         fill(255, 0, 0);
+
+        pushMatrix();
         if (isMouseOver()) {
             translate(0, -5);
         }
@@ -27,6 +29,7 @@ class Button {
         fill(255);
         textFont(mainFont, 37);
         text(text, this.x, this.y + 7);
+        popMatrix();
     }
     
     // Metodo que retorna verdadero si el mouse esta en el boton.s

@@ -99,12 +99,12 @@ void setup() {
     // Cargar los sonidos de ataque.
     attackSounds = new SoundFile[7];
 	for (int i = 0; i < attackSounds.length; i++) {
-		attackSounds[i] = new SoundFile(this, "./assets/Fx/" + (i + 1) + ".mp3");
+		attackSounds[i] = new SoundFile(this, "./data/fx/" + (i + 1) + ".mp3");
 	}
     // Sonido de movimiento.
-	moveFile = new SoundFile(this, "./assets/Fx/rustling.mp3");
+	moveFile = new SoundFile(this, "./data/fx/rustling.mp3");
     // Sonido de salto.
-	jumpFile = new SoundFile(this, "./assets/Fx/jump.mp3");
+	jumpFile = new SoundFile(this, "./data/fx/jump.mp3");
 
     // Cosos 3d.
     cat = loadShape("Baby_Yoda.obj"); // 3d
@@ -335,6 +335,8 @@ void draw() {
         startScene();
     } else if (state == "game") {
         gameScene();
+    } else if (state == "story") {
+        historyScene();
     } else if (state == "end") {
         endScene();
     }
