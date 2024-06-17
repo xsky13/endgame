@@ -14,8 +14,11 @@ void endScene() {
 	// Boton de reinicio al juego.
     Button startButton = new Button(width/2, height/2 + 150, 200, 60, "Reiniciar", new Runnable() {
 		public void run() {
-			setup();
 			state = "start";
+			players[0].health = 100;
+			players[1].health = 100;
+            players[0].position.x = 100;
+			players[1].position.x = 900;
 		}
     });
     startButton.display();

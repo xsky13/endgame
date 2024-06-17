@@ -46,6 +46,9 @@ PImage stone;
 PImage xThingy;
 PImage arrowThingy;
 
+PImage A0, A1, B0, B1, X0, X1, Y0, Y1, LB0, LB1, RB0, RB1;
+PImage KeyA0, KeyA1, KeyS0, KeyS1, KeyD0, KeyD1, KeyW0, KeyW1, KeyQ0, KeyQ1, KeyRight0, KeyRight1, KeyDown0, KeyDown1, KeyLeft0, KeyLeft1, KeyUp0, KeyUp1, KeyShift0, KeyShift1;
+
 // Musica de fondo.
 SoundFile backgroundMusic;
 // Sonidos ataque.
@@ -133,6 +136,42 @@ void setup() {
     // Inicializar arboles.
     tree = new Tree(width - 670, height - 350);
     tree2 = new Tree(180, height - 350);
+
+     // imagenes mando
+    A0 = loadImage("data/ImgMando/bottom/A0.png");
+    A1 = loadImage("data/ImgMando/bottom/A1.png");
+    //B0 = loadImage("data/ImgMando/bottom/B0.png");
+    //B1 = loadImage("data/ImgMando/bottom/B1.png");
+    X0 = loadImage("data/ImgMando/bottom/X0.png");
+    X1 = loadImage("data/ImgMando/bottom/X1.png");
+    //Y0 = loadImage("data/ImgMando/bottom/Y0.png");
+    //Y1 = loadImage("data/ImgMando/bottom/Y1.png");
+    //LB0 = loadImage("data/ImgMando/gatillos/LB0.png");
+    LB1 = loadImage("data/ImgMando/gatillos/LB1.png");
+    RB0 = loadImage("data/ImgMando/gatillos/RB0.png");
+    RB1 = loadImage("data/ImgMando/gatillos/RB1.png");
+
+    //imagenes teclado
+    KeyA1 = loadImage("data/ImgTeclado/KeyboardOff/KeyA1.png");
+    KeyA0 = loadImage("data/ImgTeclado/KeyboardOn/KeyA0.png");
+    KeyS1 = loadImage("data/ImgTeclado/KeyboardOff/KeyS1.png");
+    KeyS0 = loadImage("data/ImgTeclado/KeyboardOn/KeyS0.png");
+    KeyD1 = loadImage("data/ImgTeclado/KeyboardOff/KeyD1.png");
+    KeyD0 = loadImage("data/ImgTeclado/KeyboardOn/KeyD0.png");
+    KeyW1 = loadImage("data/ImgTeclado/KeyboardOff/KeyW1.png");
+    KeyW0 = loadImage("data/ImgTeclado/KeyboardOn/KeyW0.png");
+    KeyQ1 = loadImage("data/ImgTeclado/KeyboardOff/KeyQ1.png");
+    KeyQ0 = loadImage("data/ImgTeclado/KeyboardOn/KeyQ0.png");
+    KeyRight1 = loadImage("data/ImgTeclado/KeyboardOff/KeyRight1.png");
+    KeyRight0 = loadImage("data/ImgTeclado/KeyboardOn/KeyRight0.png");
+    KeyDown1 = loadImage("data/ImgTeclado/KeyboardOff/KeyDown1.png");
+    KeyLeft1 = loadImage("data/ImgTeclado/KeyboardOff/KeyLeft1.png");
+    KeyLeft0 = loadImage("data/ImgTeclado/KeyboardOn/KeyLeft0.png");
+    KeyDown0 = loadImage("data/ImgTeclado/KeyboardOn/KeyDown0.png");
+    KeyUp1 = loadImage("data/ImgTeclado/KeyboardOff/KeyUp1.png");
+    KeyUp0 = loadImage("data/ImgTeclado/KeyboardOn/KeyUp0.png");
+    KeyShift1 = loadImage("data/ImgTeclado/KeyboardOff/KeyShift1.png");
+    KeyShift0 = loadImage("data/ImgTeclado/KeyboardOn/KeyShift0.png");
     
     // Cargar imagenes.
     ground = loadImage("data/backgrounds/ground.png");
@@ -373,6 +412,8 @@ void draw() {
         gameScene();
     } else if (state == "story") {
         historyScene();
+    } else if (state == "control") {
+        MenControls();
     } else if (state == "end") {
         endScene();
     }

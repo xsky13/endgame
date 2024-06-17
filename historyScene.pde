@@ -7,10 +7,10 @@ void historyScene() {
     // text();
 
     Button backButton = new Button(150, 100, 200, 60, "Volver", new Runnable() {
-		public void run() {
-			// Al apretarlo se cambia el estado al de historia.
-			state = "start";
-		}
+      public void run() {
+        // Al apretarlo se cambia el estado al de historia.
+        state = "start";
+      }
     });
     backButton.display();
     backButton.checkForClick();
