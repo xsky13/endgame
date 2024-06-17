@@ -75,8 +75,8 @@ void  MenControls() {
     textFont(mainFont);//indico que fuente voy a usar
     textSize(50); 
     //player 1
-    text("Move", 385 + transXMen, 490 + transYMen);
-    text("Attack", 250 + transXMen, 660 + transYMen);
+    text("Move", 420 + transXMen, 490 + transYMen);
+    text("Attack", 320 + transXMen, 650 + transYMen);
 
     if (MandON) {
         text("Attack", 240 + transXMen, 750 + transYMen);
